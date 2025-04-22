@@ -2,20 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Abs Workout & Meal Plan</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body { font-family: 'Segoe UI', sans-serif; }
     .checked { text-decoration: line-through; color: gray; }
+    .tab-button { cursor: pointer; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .checkbox-label { cursor: pointer; transition: 0.2s ease; }
+    .checkbox-label:hover { color: #34D399; }
   </style>
 </head>
-<body class="bg-gray-950 text-white p-4">
-  <h1 class="text-3xl font-bold mb-4 text-green-400">Abs Workout & Meal Plan</h1>
+<body class="bg-gray-950 text-white p-6">
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <!-- Weekly Schedule -->
-    <div class="bg-gray-900 p-4 rounded-xl shadow-xl">
-      <h2 class="text-xl font-semibold mb-2 text-green-300">Weekly Workout Schedule</h2>
+  <h1 class="text-3xl font-bold mb-4 text-green-400 text-center">Abs Workout & Meal Plan</h1>
+
+  <!-- Tabs Navigation -->
+  <div class="flex justify-center mb-6">
+    <button class="tab-button p-4 rounded-lg w-1/2 border-t-4 border-green-400 hover:bg-gray-700" onclick="showTab('workout')">Workout</button>
+    <button class="tab-button p-4 rounded-lg w-1/2 border-t-4 border-green-400 hover:bg-gray-700" onclick="showTab('meal')">Meal Plan</button>
+  </div>
+
+  <!-- Tab Content -->
+  <div id="workout" class="tab-content active">
+    <!-- Workout Plan -->
+    <div class="bg-gray-900 p-4 rounded-xl shadow-xl mb-6">
+      <h2 class="text-xl font-semibold text-green-300 mb-2">Weekly Workout Schedule</h2>
       <ul class="space-y-2">
         <li><strong>Mon:</strong> Full Abs + Cardio</li>
         <li><strong>Tue:</strong> Upper Weights + Abs</li>
@@ -29,42 +43,55 @@
 
     <!-- Daily Checklist -->
     <div class="bg-gray-900 p-4 rounded-xl shadow-xl">
-      <h2 class="text-xl font-semibold mb-2 text-green-300">Today's Checklist</h2>
+      <h2 class="text-xl font-semibold text-green-300 mb-2">Today's Checklist</h2>
       <ul id="checklist" class="space-y-2">
-        <li><label><input type="checkbox" class="mr-2"> Workout Complete</label></li>
-        <li><label><input type="checkbox" class="mr-2"> Ate Clean All Day</label></li>
-        <li><label><input type="checkbox" class="mr-2"> No Junk Food</label></li>
-        <li><label><input type="checkbox" class="mr-2"> Drank Enough Water</label></li>
+        <li><label class="checkbox-label"><input type="checkbox" class="mr-2" onchange="updateStatus(this)"> Workout Complete</label></li>
+        <li><label class="checkbox-label"><input type="checkbox" class="mr-2" onchange="updateStatus(this)"> Ate Clean All Day (No Junk Food)</label></li>
+        <li><label class="checkbox-label"><input type="checkbox" class="mr-2" onchange="updateStatus(this)"> Drank 5-6 Cups of Water</label></li>
+        <li><label class="checkbox-label"><input type="checkbox" class="mr-2" onchange="updateStatus(this)"> Ate Enough Protein (e.g., Eggs, Chicken)</label></li>
+        <li><label class="checkbox-label"><input type="checkbox" class="mr-2" onchange="updateStatus(this)"> Did Not Skip Veggies</label></li>
+        <li><label class="checkbox-label"><input type="checkbox" class="mr-2" onchange="updateStatus(this)"> No Sweets or Desserts</label></li>
       </ul>
     </div>
+  </div>
 
+  <div id="meal" class="tab-content">
     <!-- Meal Plan -->
-    <div class="col-span-1 md:col-span-2 bg-gray-900 p-4 rounded-xl shadow-xl">
-      <h2 class="text-xl font-semibold mb-2 text-green-300">Daily Meal Plan</h2>
+    <div class="bg-gray-900 p-4 rounded-xl shadow-xl">
+      <h2 class="text-xl font-semibold text-green-300 mb-2">Daily Meal Plan</h2>
       <ul class="space-y-4">
-        <li>
-          <strong>Breakfast:</strong> Eggs + Toast or Banana + Water
-        </li>
-        <li>
-          <strong>Lunch (School):</strong> Pick protein (chicken/turkey), fruit/veg, and water or milk
-        </li>
-        <li>
-          <strong>Snack:</strong> Yogurt or Boiled Egg + Fruit or Nuts
-        </li>
-        <li>
-          <strong>Dinner:</strong> Chicken/Fish + Rice or Sweet Potato + Veggies
-        </li>
-        <li>
-          <strong>Evening Snack:</strong> Cottage Cheese or Fruit
-        </li>
+        <li><strong>Breakfast:</strong> Eggs + Toast or Banana + Water</li>
+        <li><strong>Lunch (School):</strong> Pick protein (chicken/turkey), fruit/veg, and water or milk</li>
+        <li><strong>Snack:</strong> Yogurt or Boiled Egg + Fruit or Nuts</li>
+        <li><strong>Dinner:</strong> Chicken/Fish + Rice or Sweet Potato + Veggies</li>
+        <li><strong>Evening Snack:</strong> Cottage Cheese or Fruit</li>
       </ul>
     </div>
   </div>
 
   <script>
+    function showTab(tabName) {
+      // Hide all tab contents
+      const tabs = document.querySelectorAll('.tab-content');
+      tabs.forEach(tab => tab.classList.remove('active'));
+      
+      // Show the selected tab
+      document.getElementById(tabName).classList.add('active');
+    }
+
+    function updateStatus(checkbox) {
+      const label = checkbox.closest('label');
+      if (checkbox.checked) {
+        label.classList.add('checked');
+      } else {
+        label.classList.remove('checked');
+      }
+    }
+
+    // Make checklist items interactive
     document.querySelectorAll('#checklist input[type="checkbox"]').forEach(box => {
       box.addEventListener('change', () => {
-        box.parentElement.classList.toggle('checked', box.checked);
+        updateStatus(box);
       });
     });
   </script>
