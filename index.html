@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Abs Workout & Meal Plan</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; }
+    .checked { text-decoration: line-through; color: gray; }
+  </style>
+</head>
+<body class="bg-gray-950 text-white p-4">
+  <h1 class="text-3xl font-bold mb-4 text-green-400">Abs Workout & Meal Plan</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Weekly Schedule -->
+    <div class="bg-gray-900 p-4 rounded-xl shadow-xl">
+      <h2 class="text-xl font-semibold mb-2 text-green-300">Weekly Workout Schedule</h2>
+      <ul class="space-y-2">
+        <li><strong>Mon:</strong> Full Abs + Cardio</li>
+        <li><strong>Tue:</strong> Upper Weights + Abs</li>
+        <li><strong>Wed:</strong> HIIT + Abs</li>
+        <li><strong>Thu:</strong> Lower Weights + Abs</li>
+        <li><strong>Fri:</strong> Max Abs Workout</li>
+        <li><strong>Sat:</strong> Light Walk or Sport</li>
+        <li><strong>Sun:</strong> Full Rest + Meal Prep</li>
+      </ul>
+    </div>
+
+    <!-- Daily Checklist -->
+    <div class="bg-gray-900 p-4 rounded-xl shadow-xl">
+      <h2 class="text-xl font-semibold mb-2 text-green-300">Today's Checklist</h2>
+      <ul id="checklist" class="space-y-2">
+        <li><label><input type="checkbox" class="mr-2"> Workout Complete</label></li>
+        <li><label><input type="checkbox" class="mr-2"> Ate Clean All Day</label></li>
+        <li><label><input type="checkbox" class="mr-2"> No Junk Food</label></li>
+        <li><label><input type="checkbox" class="mr-2"> Drank Enough Water</label></li>
+      </ul>
+    </div>
+
+    <!-- Meal Plan -->
+    <div class="col-span-1 md:col-span-2 bg-gray-900 p-4 rounded-xl shadow-xl">
+      <h2 class="text-xl font-semibold mb-2 text-green-300">Daily Meal Plan</h2>
+      <ul class="space-y-4">
+        <li>
+          <strong>Breakfast:</strong> Eggs + Toast or Banana + Water
+        </li>
+        <li>
+          <strong>Lunch (School):</strong> Pick protein (chicken/turkey), fruit/veg, and water or milk
+        </li>
+        <li>
+          <strong>Snack:</strong> Yogurt or Boiled Egg + Fruit or Nuts
+        </li>
+        <li>
+          <strong>Dinner:</strong> Chicken/Fish + Rice or Sweet Potato + Veggies
+        </li>
+        <li>
+          <strong>Evening Snack:</strong> Cottage Cheese or Fruit
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('#checklist input[type="checkbox"]').forEach(box => {
+      box.addEventListener('change', () => {
+        box.parentElement.classList.toggle('checked', box.checked);
+      });
+    });
+  </script>
+</body>
+</html>
